@@ -31,9 +31,18 @@ def testArgument(array, arrayCheck)
     		i = i + 1
         end
 	i = 0
+	count = 0
 	while array[i] && sortie == "ok"
-		
+		count = 0
+		if array[i] == "("
+			count += 1
+		elsif array[i] == "("
+			count -= 1
+		end		
 		i = i + 1
+	end
+	if count != 0
+		sortie = "erreur"
 	end
         return sortie
 end
