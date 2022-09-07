@@ -41,7 +41,15 @@ def testArgument(array, arrayCheck)
 		end		
 		i = i + 1
 	end
-	if count != 0
+	i = 0
+	new = []
+	while array[i] && sortie == "ok"
+		if array[i] != " "
+			new.push(array[i])
+		end
+	end
+	
+	if count != 0 && sortie == "ok"
 		sortie = "erreur"
 	end
         return sortie
