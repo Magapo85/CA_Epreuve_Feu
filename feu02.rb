@@ -48,7 +48,10 @@ def testArgument(array, arrayCheck)
 			new.push(array[i])
 		end
 	end
-	
+	i = 1
+	while new[i] && sortie == "ok"
+		
+	end
 	if count != 0 && sortie == "ok"
 		sortie = "erreur"
 	end
@@ -57,7 +60,7 @@ end
 
 goodSyntaxElement = [" ", ".", "(", ")", "+", "-", "*", "/", "%", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 #coeur du programme
-if longueurArgument(ARGV) != 1 || testArgument(ARGV[0], goodSyntaxElement) == "erreur"
+if longueurArgument(ARGV) != 1 || longueurArgument(ARGV[0]) < 3 || testArgument(ARGV[0], goodSyntaxElement) == "erreur"
 	puts "error"
 else
 	puts "calcul en cours"
