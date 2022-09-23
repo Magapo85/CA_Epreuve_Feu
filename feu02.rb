@@ -62,6 +62,7 @@ def testArgument(array, arrayCheck)
 		if array[i] != " "
 			new = new + array[i]
 		end
+		i += 1
 	end
 	i = 0
 	while new[i] && sortie == "ok"
@@ -81,6 +82,34 @@ def testArgument(array, arrayCheck)
                                 sortie == "erreur"
                         end
 		end
+		i += 1
+	end
+	i = 0
+	debut = -1
+	fin = -1
+	while new[i] && sortie == "ok"
+		if debut == -1 && trouverDansArray(new[i], arrayCheck[8..-1])[1] != "erreur"
+			debut = i
+		end
+		if debut != -1 && trouverDansArray(new[i], arrayCheck[8..-1])[1] == "erreur"
+			fin = i-1
+		end
+		if debut != -1 && fin != -1
+			a = debut
+			pointCount = 0
+			while a != fin + 1 #i
+				if new[a] == "."
+					pointCount += 1
+				end
+				a += 1
+			end
+			if pointCount > 1
+				sortie = "erreur"
+			end
+			debut = -1
+			fin = -1
+		end
+		i += 1
 	end
 	if count != 0 && sortie == "ok"
 		sortie = "erreur"
@@ -90,7 +119,7 @@ end
 
 def calcul(formule)
 	resultat = 0
-
+	
 	return resultat
 end
 
