@@ -48,10 +48,9 @@ def testArgument(array, arrayCheck)
 	i = 0
 	count = 0
 	while array[i] && sortie == "ok"
-		count = 0
 		if array[i] == "("
 			count += 1
-		elsif array[i] == "("
+		elsif array[i] == ")"
 			count -= 1
 		end		
 		i = i + 1
@@ -68,30 +67,41 @@ def testArgument(array, arrayCheck)
 	while new[i] && sortie == "ok"
 		if (i == 0 && trouverDansArray(new[i], arrayCheck[2..8])[1] == "erreur") || (!new[i+1] && trouverDansArray(new[i], arrayCheck[3..8].push(arrayCheck[1]))[1] == "erreur")
 			sortie = "erreur"
-		else
+			#puts "df"
+		end
+		if i != 0 && new[i+1]
 			if new[i] == "(" && (trouverDansArray(new[i-1], arrayCheck[8..-1])[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[2..8])[1] == "erreur")
-                                sortie == "erreur"
+				#puts "("
+                                sortie = "erreur"
                         end
-                        if new[i] == ")" && (trouverDansArray(new[i-1], arrayCheck[1..8].delete_at(1))[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[8..-1])[1] == "erreur")
-                                sortie == "erreur"
+                        if new[i] == ")" && (trouverDansArray(new[i-1], arrayCheck[3..8].push(arrayCheck[1]))[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[8..-1])[1] == "erreur")
+				#puts ")"
+                                sortie = "erreur"
                         end
-			if (new[i] == "+" || new[i] == "-" || new[i] == "*" || new[i] == "/" || new[i] == "%") && (trouverDansArray(new[i-1], arrayCheck[1..8].delete_at(1))[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[2..8])[1] == "erreur")
-                                sortie == "erreur"
+			if (new[i] == "+" || new[i] == "-" || new[i] == "*" || new[i] == "/" || new[i] == "%") && (trouverDansArray(new[i-1], arrayCheck[3..8].push(arrayCheck[1]))[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[2..8])[1] == "erreur")
+				#puts "add"
+                                sortie = "erreur"
                         end
 			if new[i] == "." && (trouverDansArray(new[i-1], arrayCheck[1..8])[1] == "erreur" || trouverDansArray(new[i+1], arrayCheck[1..8])[1] == "erreur")
-                                sortie == "erreur"
+				#puts "point"
+                                sortie = "erreur"
                         end
 		end
 		i += 1
 	end
+	#puts arrayCheck[3..8].push(arrayCheck[1]).to_s pareil que #puts newarray = arrayCheck[1..8].delete_at(1).to_s
+        #puts arrayCheck[2..8].to_s
+        #puts arrayCheck[3..8].to_s
+        #puts arrayCheck[8..-1].to_s
+	#puts arrayCheck.to_s
 	i = 0
 	debut = -1
 	fin = -1
 	while new[i] && sortie == "ok"
-		if debut == -1 && trouverDansArray(new[i], arrayCheck[8..-1])[1] != "erreur"
+		if debut == -1 && trouverDansArray(new[i], arrayCheck[9..-1])[1] == "erreur"
 			debut = i
 		end
-		if debut != -1 && trouverDansArray(new[i], arrayCheck[8..-1])[1] == "erreur"
+		if debut != -1 && debut != i && trouverDansArray(new[i], arrayCheck[8..-1])[1] != "erreur"
 			fin = i-1
 		end
 		if debut != -1 && fin != -1
@@ -111,7 +121,7 @@ def testArgument(array, arrayCheck)
 		end
 		i += 1
 	end
-	if count != 0 && sortie == "ok"
+	if count != 0
 		sortie = "erreur"
 	end
         return sortie, new
@@ -125,10 +135,14 @@ end
 
 goodSyntaxElement = [" ", "(", ")", "+", "-", "*", "/", "%", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 #coeur du programme
-sortie, new = testArgument(ARGV[0], goodSyntaxElement)
-if longueurArgument(ARGV) != 1 || longueurArgument(ARGV[0]) < 3 || sortie == "erreur"
+if longueurArgument(ARGV) != 1 || longueurArgument(ARGV[0]) < 3
 	puts "error"
 else
-	puts "calcul en cours..."
-	puts new + " = " + calcul(new)
+	sortie, new = testArgument(ARGV[0], goodSyntaxElement)
+	if sortie == "erreur"
+		puts "error"
+	else
+		puts "calcul en cours..."
+		puts new + " = " + calcul(new).to_s
+	end
 end
