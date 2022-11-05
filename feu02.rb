@@ -127,12 +127,52 @@ def testArgument(array, arrayCheck)
         return sortie, new
 end
 
-def calcul(formule)
-	resultat = 0
-	
-	return resultat
+def split(formule)
+	partition = []
+	taille = longueurArgument(formule)
+	i = 0
+        count = 0
+        while i != taille
+                if formule[i] == "("
+                        count += 1
+                elsif array[i] == ")"
+                        count -= 1
+                end
+                i = i + 1
+        end
+	return partition
 end
 
+def calcul(formule)
+	resultat = 0
+	equation = slipt(formule)
+	return resultat
+end
+def addition(nombre1,nombre2)
+	result = 0
+	result = nombre1 + nombre2
+	return result
+end
+def soustraction(nombre1,nombre2)
+        result = 0
+        result = nombre1 - nombre2
+        return result
+end
+def multiplication(nombre1,nombre2)
+        result = 0
+        result = nombre1 * nombre2
+        return result
+end
+def division(nombre1,nombre2)
+        result = 0
+        result = nombre1 / nombre2
+        return result
+end
+def euclide(nombre1, nombre2)
+	result = 0
+	result = nombre1%nombre2
+	return result
+end
 goodSyntaxElement = [" ", "(", ")", "+", "-", "*", "/", "%", ".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 #coeur du programme
 if longueurArgument(ARGV) != 1 || longueurArgument(ARGV[0]) < 3
